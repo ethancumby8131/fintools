@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TDSR Calculator 1</title>
+        <meta charset="UTF 8">
+        <style>
+            body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 20px;
+            }
+            .container {
+                display: flex;
+                gap: 10%;
+            }
+            .left {
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 30px;
+                margin: 5px;
+                width: 40%;
+                background: #f5f5f5;
+            }
+            .right {
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                padding: 30px;
+                margin: 5px;
+                height: 450px;
+                width: 25%;
+                background: #f5f5f5;
+            }
+            .flex {
+                text-align: center;
+            }
+            .input-group {
+                margin-bottom: 15px;
+            }
+            
+            input {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+            }
+
+            .SDollarIn {
+                text-align: center;
+                width: 100px;
+                height: 30px;
+            }
+            .MDollarIn {
+                text-align: center;
+                width: 140px;
+                height: 30px;
+            }
+            .LDollarIn {
+                text-align: center;
+                width: 190px;
+                height: 30px;
+            }
+            .PercentIn {
+                text-align: center;
+                width: 70px;
+                height: 30px;
+            }
+            .PercentOut {
+                resize: none;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                text-align: center;
+                padding-bottom: 0;
+                padding-top: 8px;
+                font-size: 13px;
+                width: 50px;
+                height: 22px;
+            }
+            .DollarOut{
+                resize: none;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                text-align: center;
+                padding-top: 8px;
+                padding-bottom: 0;
+                height: 22px;
+                width: 130px;
+            }
+           
+            .AmortIn {
+                text-align: center;
+                font-size: 13px;
+                height: 30px;
+                width: 70px;
+            }
+            .ChoiceBox {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 11px;
+                height: 30px;
+                width: 100px;
+            }
+           
+            p {
+                font-size: small;
+                margin: 5px 0;
+            }
+            .inline-group {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            details {
+                margin-bottom: 1rem;
+                border: 0;
+                border-radius: 10px;
+                box-shadow:  0px 0px 5px rgba(0, 0, 0, 0.1);
+                padding: 0.5rem 1rem;
+                background: #f3f3f3;
+            }
+            summary {
+                font-weight: bold;
+                cursor: pointer;
+                padding: 0.5rem 0;
+            }
+            .grid-container {
+                display: grid;
+                margin: 10px;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px 20px;
+                padding: 10px;
+            }
+            .grid-container label {
+                display: flex;
+                flex-direction: column;
+                font-size: 14px;
+            }
+            
+            .RedText { color:red; 
+             resize: none;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                text-align: center;
+                
+                height: 20px;
+                width: 50px;
+                
+            }
+            .OrangeText { color:orange; 
+             resize: none;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                text-align: center;
+                
+                height: 20px;
+                width: 50px;
+                
+            }
+            .GreenText { color:green; 
+             resize: none;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                text-align: center;
+                
+                height: 20px;
+                width: 50px;
+                
+            }
+            .DefText {
+                resize: none;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                text-align: center;
+                
+                height: 20px;
+                width: 50px;
+                
+            }
+            .Red {
+                color: red;
+            }
+            .Green {
+                color: green;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <h3>TDSR Calculator V1</h3>
+        <div class="container">
+
+            <div class="left">
+                <h4></h4>
+                <div class="input-group">
+                    <details open>
+                        <summary>Mortgage Details</summary>
+                        <div class="grid-container">
+                        <p for="PurchasePrice">Purchase Price</p>
+                        <input class="MDollarIn" type="text" id="PurchasePrice">
+
+                        <p for="DownPayment">Down-payment</p>
+
+                        <div class="inline-group">
+                        <input class="SDollarIn" type="text" id="DownPayment">
+                        <textarea class= "PercentOut" id="PercentDown" readonly></textarea>
+                        </div>
+
+                        <p id="defaultInsText">Default Insurance:</p>
+                        <textarea class="DollarOut" id="defaultIns" readonly></textarea> 
+                    
+
+                        <p id="AmortizationText">Amortization</p>
+                        <div class="inline-group">
+                        <input class= "AmortIn" type="text" id="AmortizationY" placeholder="Years">
+                        <input class= "AmortIn" type="text" id="AmortizationM" placeholder="Months">
+                        </div>
+                        <p id="InterestRateText">Interest Rate (%)</p>
+                        <input class= "PercentIn" type="text" id="InterestRate">
+                    
+
+                        <p for =frequency>Payment Frequency:</p>
+                        <select class="ChoiceBox" id="frequency">
+                            <option value="monthly">Monthly</option>
+                            <option value="semiMonthly">Semi-Monthly</option>
+                            <option value="biweekly">Bi-Weekly</option>
+                            <option value="weekly">Weekly</option>
+                        </select>
+                        </div>
+                    </details>
+                    <details close>
+                        <summary>Income Details</summary>
+                        <div class="grid-container">
+                        <p for =income1Text>Income 1: </p>
+                        <input class="LDollarIn" type="text" id="income1" placeholder="Annual Income">
+                    
+                        <p for =incoome2Text>Income 2: </p>
+                        <input class= "LDollarIn" type="text" id="income2" placeholder="Annual Income">
+                    
+                        <p for =SubjectPropRent>Rental Income (This Property):</p>
+                        <input class= "LDollarIn" type="text" id="subrent" placeholder="Rental Income">
+                        
+                         <p for =oincomeText>Other Income: </p>
+                        <input class="LDollarIn" type="text" id="oincome" placeholder="Other Income">   
+                        </div>
+                        
+                    </details>
+
+                    <details close>
+                        <summary>Liabilities</summary>
+                        <div class="grid-container">
+                        <p for =otherdebtpaymentstext>Other Debt Payments: </p>
+                        <input class= "LDollarIn" type="text" id="otherdebtpayments" placeholder="Monthly Payments">
+                    
+                        <p for =otherrevolvingtext>Other Revolving Credit: </p>
+                        <input class= "LDollarIn" type="text" id="otherrevolving" placeholder="Credit cards/Lines of Credit">
+
+                        
+                        
+                        
+                        </div>
+                    </details>
+
+                    <details close>
+                        <summary>Property Expenses</summary>
+                        <div class="grid-container">
+                        <p for =propertytaxes>Property Taxes: </p>
+                        <input class= "LDollarIn" type="text" id="propertytax" placeholder="Property Tax">
+                    
+                        <p for =PropSize>Property Size: </p>
+                        <input class= "LDollarIn" type="text" id="propsize" placeholder="Property Size (sq ft)">
+                        </div>
+                    </details>
+
+                    <details close>
+                        <summary>Other Property Details</summary>
+                        <div class="grid-container">
+                        <p for =OtherPropRent>Rental Income (Other Properties):</p>
+                        <input class= "MDollarIn" type="text" id="nonsubrent" placeholder="Rental Income">
+
+                        <p for =othermortgagetext>Other Mortgage Payments: </p>
+                        <div class="inline-group">
+                        <input class= "MDollarIn" type="text" id="othermortgage" placeholder="Mortgage Payments">
+                        <select class= "ChoiceBox" id="OMFrequency">
+                         <option value="monthly">Monthly</option>
+                         <option value="semiMonthly">Semi-Monthly</option>
+                         <option value="biweekly">Bi-Weekly</option>
+                         <option value="weekly">Weekly</option>
+                         </select>
+                        </div>
+                    </details>
+
+                    
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="right">
+                <div class= "flex">
+                <h4></h4>
+
+                <p id="LoanAmountText">Loan Amount:</p>
+                <textarea class= "DollarOut" id="LoanAmount" readonly></textarea>
+
+                <p id="PaymentText">Payment:</p>
+                <textarea class= "DollarOut" id="Payment" readonly></textarea>
+                <div>
+                <p id="NewAmortText"></p>
+                </div><div>
+                <p id="NewAmort"></p>
+                    </div>
+
+                <div class="grid-container">
+                <div class="inline-group">
+                <p id="TDSRText">TDSR:</p>
+                <textarea class="DefText" id="TDSR" readonly></textarea>
+                </div>
+
+                <div class="inline-group">
+                    <p id="GDSRText">GDSR:</p>
+                    <textarea class="DefText" id="GDSR" readonly></textarea>
+                </div>
+                </div>
+
+                <div class="inline-group>">
+                    <p id="REIBtext"></p>
+                    <p id="REIBtest"></p>
+                </div>
+                <p id="Heattest"></p>
+                <p id="PTaxtest"></p>
+            </div>
+            </div>
+
+        </div>
+
+    </body>
+
+    <script>
+
+       function formatWithCommas(input) {
+                let value = input.value.replace(/[$,]/g, "");
+                if (!isNaN(value) && value !== "") {
+                    input.value = "$" + Number(value).toLocaleString("en-US");
+                }
+            }
+
+        function formatWithPercentIn(input) {
+            let value = input.value.replace(/[%]/g,"");
+            value = parseFloat(value).toFixed(2);
+            if (!isNaN(value)&& value!==""){
+                input.value = value + "%";
+        }}
+
+        function formatWithPercentOut(input) {
+            feild.value = feild.value.replace(/%/g,"");
+        }
+
+
+            document.getElementById("InterestRate").addEventListener("blur",function() {formatWithPercentIn(this)
+                
+            });
+            document.getElementById("InterestRate").addEventListener("focus",function() {formatWithPercentOut(this)
+
+            });
+            
+
+            document.getElementById("PurchasePrice").addEventListener("input",function() {formatWithCommas(this);
+            });
+            document.getElementById("DownPayment").addEventListener("input",function() {formatWithCommas(this);
+            }); 
+            document.getElementById("defaultIns").addEventListener("input",function() {formatWithCommas(this);
+            });
+            document.getElementById("income1").addEventListener("input",function() {formatWithCommas(this);
+            });
+            document.getElementById("income2").addEventListener("input",function() {formatWithCommas(this);
+            });
+            document.getElementById("otherdebtpayments").addEventListener("input",function() {formatWithCommas(this);
+            });
+            document.getElementById("otherrevolving").addEventListener("input",function() {formatWithCommas(this);
+            });
+            document.getElementById("propertytax").addEventListener("input",function() {formatWithCommas(this);
+            });
+            document.getElementById("subrent").addEventListener("input",function() {formatWithCommas(this);
+            });
+            document.getElementById("nonsubrent").addEventListener("input",function() {formatWithCommas(this);
+            });
+            document.getElementById("othermortgage").addEventListener("input",function() {formatWithCommas(this);
+            });
+            document.getElementById("oincome").addEventListener("input",function(){formatWithCommas(this);
+            });
+
+            
+
+        function Prat() {
+            let Mprice = Number(document.getElementById("PurchasePrice").value.replace(/[$,]/g,""));
+            let Dpay = Number(document.getElementById("DownPayment").value.replace(/[$,]/g,""));
+            let Pdown = (Dpay/Mprice)*100;
+            Pdown = Number(parseFloat(Pdown).toFixed(1));
+            document.getElementById("PercentDown").textContent = (Pdown + "%").toLocaleString("en-US");
+        }
+        function Dins() {
+            let Mprice = Number(document.getElementById("PurchasePrice").value.replace(/[$,]/g,""));
+            let Dpay = Number(document.getElementById("DownPayment").value.replace(/[$,]/g,""));
+            let Pdown = (Dpay/Mprice)*100;
+            let Loan = Mprice - Dpay;
+            let AmY = Number(document.getElementById("AmortizationY").value);
+            let AmM = Number(document.getElementById("AmortizationM").value);
+            let AmortT = ((AmY * 12) + AmM)/12; 
+            let Ins;
+         
+            if (AmortT<= 25 && Pdown >=15 && Pdown < 20)  {
+                Ins = Loan * 0.028;
+            }   else if (AmortT<= 25 && Pdown >= 10 && Pdown <15 ) {
+                    Ins = Loan * 0.031;
+            }   else if (AmortT<=25 && Pdown >= 5 && Pdown <10) {
+                    Ins = Loan * 0.04;
+            }   else if (AmortT>25 && Pdown >= 15 && Pdown < 20) {
+                    Ins = Loan * 0.03;
+            }   else if (AmortT >25 && Pdown >= 10 && Pdown < 15) {
+                    Ins = Loan * 0.033;
+            }   else {
+                    Ins = Loan * 0.042;
+                }
+
+                Ins = Number(parseFloat(Ins).toFixed(2))
+
+            let MTot;
+            if (Pdown < 5) {
+                document.getElementById("defaultIns").textContent = "Too Low";
+                MTot = 0
+            } else if (Pdown >= 5 && Pdown < 20) {
+                document.getElementById("defaultIns").textContent = "$" + Ins.toLocaleString("en-US");
+                MTot = Loan + Ins;
+            } else {
+                document.getElementById("defaultIns").textContent = "Not Required";
+                MTot = Loan;
+            }
+            if (!isNaN(MTot) && MTot !== 0) {
+            document.getElementById("LoanAmount").textContent = "$" + MTot.toLocaleString("en-US");
+            } else {
+                document.getElementById("LoanAmount").textContent= ""
+            }
+        }
+        
+        function Amort() {
+            let MTot = document.getElementById("LoanAmount").textContent.replace(/[$,]/g,"");
+            let Int = Number(document.getElementById("InterestRate").value.replace(/[%]/g,"")) / 100;
+            let AmY = Number(document.getElementById("AmortizationY").value);
+            let AmM = Number(document.getElementById("AmortizationM").value);
+            let AmortT = ((AmY * 12) + AmM)/12;
+            let n;
+            if (document.getElementById("frequency").value === "monthly") {
+                n=12; 
+            } 
+            else {
+                n=24;
+            }
+     
+            let PMT;
+            let ron = Int/n;
+            let tn = AmortT * n;
+            
+            if (document.getElementById("frequency").value === "monthly"||
+                document.getElementById("frequency").value === "semiMonthly"||
+                document.getElementById("frequency").value === "biweekly") {
+                PMT = MTot * ((Math.pow(1+ron,tn) * ron )/(Math.pow(1+ron,tn)-1));
+            }    else {
+                 PMT = (MTot * ((Math.pow(1+ron,tn) * ron )/(Math.pow(1+ron,tn)-1)))/2;
+            }
+
+            if (!isNaN(PMT) && PMT !== 0 && isFinite(PMT)) {
+
+                PMT = Number(parseFloat(PMT).toFixed(2))
+                document.getElementById("Payment").textContent = "$" + PMT.toLocaleString("en-US");
+            } else {
+                document.getElementById("Payment").textContent = "";
+            }
+
+            let T;
+            let n2;
+            let ron2;
+
+            if (document.getElementById("frequency").value === "biweekly") {
+                n2=26;
+                ron2=Int/n2;
+
+            } else if (document.getElementById("frequency").value === "weekly"){
+                n2 = 52;
+                ron2 = Int/n2;
+            }
+
+            T =  (-Math.log(1 - ron2 * MTot / PMT) / Math.log(1 + ron2))/n2;
+
+            let NAmortY = Math.floor(T);
+            let NAmortM = (T - NAmortY) * 12;
+                NAmortY = Math.round(NAmortY)
+                NAmortM = Math.round(NAmortM)
+
+            if (!(isNaN(T))){
+                document.getElementById("NewAmort").textContent = NAmortY + " Years " + NAmortM + " Months";
+                document.getElementById("NewAmortText").textContent = "New Amortization:";
+            } else {
+                document.getElementById("NewAmort").textContent = "";
+                document.getElementById("NewAmortText").textContent = "";
+            }     
+        }
+        function TDSR() {
+        
+                let MTot = document.getElementById("LoanAmount").textContent.replace(/[$,]/g,"");
+                let Int = Number(document.getElementById("InterestRate").value.replace(/[%]/g,"")) / 100;
+                let QInt = Int + 0.02;
+                let AmY = Number(document.getElementById("AmortizationY").value);
+                let AmM = Number(document.getElementById("AmortizationM").value);
+                let AmortT = ((AmY * 12) + AmM)/12;
+
+                let n = 12;
+
+                let Qron = QInt/n;
+                let tn = AmortT * n;
+                let QPMT;
+
+                        QPMT = MTot * ((Math.pow(1+Qron,tn) * Qron )/(Math.pow(1+Qron,tn)-1));
+
+                
+                
+                let Inc1 = Number(document.getElementById("income1").value.replace(/[$,]/g,""))/12;
+                let Inc2 = Number(document.getElementById("income2").value.replace(/[$,]/g,""))/12;
+                let OInc = Number(document.getElementById("oincome").value.replace(/[$,]/g,""))/12;
+                let Srent = Number(document.getElementById("subrent").value.replace(/[$,]/g,""))/2;
+                let NSrent = Number(document.getElementById("nonsubrent").value.replace(/[$,]/g,""));
+                let OPMT = Number(document.getElementById("otherdebtpayments").value.replace(/[$,]/g,""));
+                let OREV = Number(document.getElementById("otherrevolving").value.replace(/[$,]/g,""))*0.03;
+                let PTax = Number(document.getElementById("propertytax").value.replace(/[$,]/g,""))/12;
+                let PSize = Number(document.getElementById("propsize").value.replace(/[" Sqft"]/g,""));
+                let OMTG = Number(document.getElementById("othermortgage").value.replace(/[$,]/g,""));
+            
+            
+            if (document.getElementById("OMFrequency").value === "monthly") {
+                OMTG = OMTG;
+            } else if (document.getElementById("OMFrequency").value === "semiMonthly") {
+                OMTG = OMTG * 2;
+            } else if (document.getElementById("OMFrequency").value === "biweekly") {
+                OMTG = OMTG * 26 / 12;
+            } else {
+                OMTG = OMTG * 52 / 12;
+            }
+            let PHeat = PSize * 0.05
+            let REIB = (NSrent-(0.5*NSrent+OMTG))
+            let Ginc;
+            let Gdebt;
+
+            if (OMTG === 0 && NSrent === 0){
+                Ginc = Inc1 + Inc2 + Srent + OInc;
+                Gdebt = OPMT + OREV + PTax + PHeat + QPMT;
+                document.getElementById("REIBtest").textContent = "";
+                document.getElementById("REIBtext").textContent = "No Other Mortgage";
+                document.getElementById("REIBtest").className = "Neut"
+            } else if (OMTG > 0 && NSrent === 0)
+            {
+            Ginc = Inc1 + Inc2 + Srent + OInc;
+            Gdebt = OPMT + OREV + PTax + PHeat + OMTG + QPMT;
+            document.getElementById("REIBtest").textContent = "";
+            document.getElementById("REIBtext").textContent = "Other Mortgage: " + OMGT.toLocaleString("en-US");
+            document.getElementById("REIBtest").className = "Neut";
+            } else if (REIB > 0) {
+                Ginc = Inc1 + Inc2 + Srent + REIB + OInc;
+                Gdebt = OPMT + OREV + PTax + PHeat + QPMT;
+                REIB = Number(parseFloat(REIB).toFixed(2))
+                document.getElementById("REIBtext").textContent = "Rental Income Surplus: ";
+                document.getElementById("REIBtest").textContent = "$" + REIB.toLocaleString("en-US");
+                document.getElementById("REIBtest").className = "Green";
+            } else {
+                Ginc = Inc1 + Inc2 + Srent + OInc;
+                Gdebt = OPMT + OREV + PTax + PHeat - REIB + QPMT;
+                REIB = Number(parseFloat(REIB).toFixed(2))
+                document.getElementById("REIBtext").textContent = "Rental Income Deficit: ";
+                document.getElementById("REIBtest").textContent = "$" + (-1 * REIB).toLocaleString("en-US");
+                document.getElementById("REIBtest").className = "Red";
+            }
+
+            let TDS = (Gdebt / Ginc) * 100;
+            let GDS = ((PTax + PHeat + QPMT) / Ginc) * 100
+            TDS = Number(parseFloat(TDS).toFixed(1))
+            GDS = Number(parseFloat(GDS).toFixed(1))
+            
+            if (!isNaN(TDS) && isFinite(TDS) && TDS <= 60) {
+                document.getElementById("TDSR").textContent = TDS + "%";
+            
+            } else if (!isNaN(TDS) && isFinite(TDS)&& TDS>60){
+                document.getElementById("TDSR").textContent = "60.0%"
+            } else
+            {
+                document.getElementById("TDSR").textContent = "";
+            }
+            if (!isNaN(TDS) && isFinite(TDS)) {
+                if (TDS > 44) {
+                    document.getElementById("TDSR").className = "RedText";
+                } else if (TDS >= 39 && TDS <= 44) {
+                    document.getElementById("TDSR").className = "OrangeText";
+                } else {
+                    document.getElementById("TDSR").className = "GreenText";
+                }
+            } else {
+                document.getElementById("TDSR").className = "DefText";
+            }
+            
+
+
+             if (!isNaN(GDS) && isFinite(GDS) && GDS <= 60) {
+                document.getElementById("GDSR").textContent = GDS + "%";
+            
+            } else if (!isNaN(GDS) && isFinite(GDS)&& GDS > 60){
+                document.getElementById("GDSR").textContent = "60.0%"
+            } else
+            {
+                document.getElementById("GDSR").textContent = "";
+            }
+
+            if (!isNaN(GDS) && isFinite(GDS)) {
+                if (GDS > 44) {
+                    document.getElementById("GDSR").className = "RedText";
+                } else if (GDS >= 39 && GDS <= 44) {
+                    document.getElementById("GDSR").className = "OrangeText";
+                } else {
+                    document.getElementById("GDSR").className = "GreenText";
+                }
+            } else {
+                document.getElementById("GDSR").className = "DefText";
+            }
+
+            PTax = Number(parseFloat(PTax).toFixed(2));
+            PHeat = Number(parseFloat(PHeat).toFixed(2));
+
+            if (!isNaN(PTax) && isFinite(PTax)) {
+                document.getElementById("PTaxtest").textContent = "Monthly Property Tax: " + "$" + PTax.toLocaleString("en-US");
+            } else {
+                document.getElementById("PTaxtest").textContent = "";
+            }
+            if (!isNaN(PHeat) && isFinite(PHeat)) {
+                document.getElementById("Heattest").textContent = "Estimated Monthly Heating: " + "$" + PHeat.toLocaleString("en-US");
+            } else {
+                document.getElementById("Heattest").textContent = "";
+            }
+        }
+    
+
+        document.getElementById("PurchasePrice").addEventListener("input", Prat);
+        document.getElementById("DownPayment").addEventListener("input", Prat);
+
+        document.getElementById("DownPayment").addEventListener("input", Dins);
+        document.getElementById("PurchasePrice").addEventListener("input", Dins);
+        document.getElementById("AmortizationY").addEventListener("input",Dins);
+        document.getElementById("AmortizationM").addEventListener("input",Dins);
+        
+        document.getElementById("PurchasePrice").addEventListener("input", Amort);
+        document.getElementById("DownPayment").addEventListener("input", Amort);
+        document.getElementById("InterestRate").addEventListener("input", Amort);
+        document.getElementById("AmortizationY").addEventListener("input", Amort)
+        document.getElementById("AmortizationM").addEventListener("input", Amort);
+        document.getElementById("frequency").addEventListener("change", Amort);
+
+        document.getElementById("frequency").addEventListener("change", TDSR);
+        document.getElementById("PurchasePrice").addEventListener("input", TDSR);
+        document.getElementById("DownPayment").addEventListener("input", TDSR);
+        document.getElementById("InterestRate").addEventListener("input", TDSR);
+        document.getElementById("AmortizationY").addEventListener("input", TDSR);
+        document.getElementById("AmortizationM").addEventListener("input", TDSR);
+        document.getElementById("income1").addEventListener("input", TDSR);
+        document.getElementById("income2").addEventListener("input", TDSR);
+        document.getElementById("subrent").addEventListener("input", TDSR);
+        document.getElementById("nonsubrent").addEventListener("input", TDSR);
+        document.getElementById("otherdebtpayments").addEventListener("input", TDSR);
+        document.getElementById("otherrevolving").addEventListener("input", TDSR);
+        document.getElementById("propertytax").addEventListener("input", TDSR);
+        document.getElementById("propsize").addEventListener("input", TDSR);
+        document.getElementById("othermortgage").addEventListener("input", TDSR);
+        document.getElementById("OMFrequency").addEventListener("change", TDSR);
+        document.getElementById("oincome").addEventListener("input", TDSR);
+    </script>
+
+</html>
