@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome</title>
+        <meta charset="UTF 8">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <style>
+            body {
+                font-family:'Inter', sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                flex-direction: column;
+            }
+            section {
+                margin: 0;
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            h1 {
+                color: rgb(247, 215, 5);
+                font-weight: bold;
+            }
+            .smalltext {
+                
+                font-size: 10px;
+                color: #333;
+            }
+            .smalltext:hover {
+                color: rgb(247, 215, 5);
+                transform: scale(1.05);
+                cursor: default;
+            }
+            .container {
+                position: relative;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                height: 60%;
+                width: 60%;
+                background-color: rgb(245, 245, 245);
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.204);
+            }
+            .grid-container {
+                position: relative;
+                margin: 0;
+                display: grid;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                height: 80%;
+                width: 80%;
+                background-color: rgb(245, 245, 245);
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.204);
+            }
+            .back-symbol {
+                position: absolute;
+                top: 15px;
+                left: 20px;
+                font-size: 30px;
+                font-weight: bold;
+                color: #333;
+                background-color: transparent;
+                cursor: pointer;
+                border: 0;
+            }
+            .back-symbol:hover {
+                transform: scale(1.10);
+            }
+            .button1 {
+                font-size: large;
+                font-weight:600;
+                margin-top: 5%;
+                background-color: rgb(247, 215, 5);
+                color: #f7f7f7;
+                border: 0;
+                box-sizing: content-box;
+                height: 10%;
+                width: 13%;
+                border-radius: 10%;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.204);
+                transition: all 0.2s ease;
+            }
+            .button2 {
+                font-size: large;
+                font-weight:500;
+                margin-top: 15px;
+                background-color: rgb(247, 215, 5);
+                color: #f7f7f7;
+                border: 0;
+                box-sizing: content-box;
+                height: 30px;
+                width: 50px;
+                border-radius: 5px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.204);
+                transition: all 0.2s ease;
+            }
+            
+            .button1:hover {
+                background-color: rgb(230,200,0);
+                transform: scale(1.05)
+            }
+            .button2:hover {
+                background-color: rgb(230,200,0);
+                transform: scale(1.05)
+            }
+            .button1:active {
+                background-color: rgb(230,200,0);
+            }
+            .button2:active {
+                background-color: rgb(230,200,0);
+            }
+            .ExitPage {
+                text-decoration: none;
+                color: black;
+            }
+            .ExitPage:hover{
+                transform: scale(1.10);
+                color: rgb(247, 215, 5);
+            }
+            .ExitPage:active{
+                color: rgb(230,200,0);
+            }
+            
+            
+        </style>
+    </head>
+    <body>
+        <section id="Home-Page">
+        <div class="container">
+        <h1>Welcome to fintools.ca</h1>
+        <p>You know what you want.</p>
+        <p>We know how to get you there.</p>
+        <button id="showme" onclick="WhatCountry()" class="button1">Show Me</button>
+        </div>
+        <p class="smalltext" onclick="CalcPage()">Already Know where you are headed?</p>
+        
+        </section>
+
+        <section id="Country-Page">
+            <div class="container">
+                <h3>Where do you live??</h3>
+                <button class="back-symbol" onclick="StartPage()">&lt;</button>
+                <br>
+                <label for="canada">Canada
+                <input type="radio" name="country" id="canada" value="Calc-Page">
+                </label>
+                <br>
+                <label for="unitedstates">The United States
+                <input type="radio" name="country" id="unitedstates" value="WIP-Page">
+                </label>
+                <br>
+                <label for="nextfromcountry">
+                <button id="nextfromcountry" class="button2" onclick="Next()">Next</button>
+                </label>
+            </div>
+            
+        </section>
+        
+        <section id="WIP-Page">
+            <div class="container">
+                <button class="back-symbol" onclick="WhatCountry()">&lt;</button>
+                <h3>Work In Progress</h3>
+                <p>This page is a work in progress, please come back another time to check in!</p>
+            </div>
+        </section>
+
+        <section id="Calc-Page">
+            <div class = "container">
+                <button class="back-symbol" onclick="WhatCountry()">&lt;</button>
+                <a href= "TDSR Calculator 1.html" id="TDSRCalc" class="ExitPage">TDSR Calculator</a>
+            </div>
+        </section>
+
+        <section id="testpage">
+            <div class="container">
+                <button class="back-symbol" onclick="WhatCountry()">&lt;</button>
+                <p>page</p>
+            </div>
+        </section>
+
+    </body>
+    <script>
+        
+       
+        const CPage = document.getElementById('Country-Page')
+        CPage.style.display='none'
+
+        const WIPPage = document.getElementById('WIP-Page')
+        WIPPage.style.display='none'
+
+        const TPage = document.getElementById('testpage')
+        TPage.style.display='none'
+
+        const CalPage = document.getElementById('Calc-Page')
+        CalPage.style.display='none'
+
+        
+        function WhatCountry() {
+          const home = document.getElementById('Home-Page');
+          const CPage = document.getElementById('Country-Page');
+          const WIPPage = document.getElementById('WIP-Page');
+          const CalPage = document.getElementById('Calc-Page');
+          home.style.display = 'none';
+          CPage.style.display = 'flex';
+          WIPPage.style.display = 'none';
+          CalPage.style.display = 'none';
+
+        }
+        function StartPage() {
+            const home = document.getElementById('Home-Page');
+            const CPage = document.getElementById('Country-Page');
+            home.style.display = 'flex';
+            CPage.style.display = 'none';
+        }
+
+        function Next() {
+            const home = document.getElementById('Home-Page');
+            const CPage = document.getElementById('Country-Page');
+            const WIPPage = document.getElementById('WIP-Page');
+            const CalPage = document.getElementById('Calc-Page');
+            const selected = document.querySelector('input[name="country"]:checked');
+
+            if (!selected){
+                alert("Please Select an option");
+                return;
+            }
+            
+            if (selected.value === "WIP-Page") {
+                CPage.style.display = 'none'
+                WIPPage.style.display = 'flex'
+            }   else if (selected.value === "Calc-Page") {
+                CPage.style.display = 'none'
+                CalPage.style.display = 'flex'
+            }   else {
+                CPage.style.display - 'none'
+            }
+
+        document.querySelectorAll('input[name="country"]').forEach(radio=>radio.checked = false);   
+            
+        }
+        function CalcPage() {
+          const home = document.getElementById('Home-Page');
+          const CPage = document.getElementById('Country-Page');
+          const WIPPage = document.getElementById('WIP-Page');
+          const CalPage = document.getElementById('Calc-Page');
+          home.style.display = 'none';
+          CPage.style.display = 'none';
+          WIPPage.style.display = 'none';
+          CalPage.style.display = 'flex';
+        }
+
+        
+        
+
+    </script>
+</html>
