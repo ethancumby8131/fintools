@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>TDSR 3.1</title>
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+    <style>
+        body {
+            font-family: 'inter',sans-serif;
+            display: flex;
+            
+        }
+
+        /*Containers*/
+
+        .container{
+            margin: 2.5%;
+            height: 95vh;
+            width: 95vw;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: space-between;
+        }
+        .Left {
+            height: 85vh;
+            width: 40vw;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            margin: 2%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            
+        }
+        .Right {
+            height: 85vh;
+            width: 40vw;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            margin: 2%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .Read {
+            margin: 5%;
+            padding: 2%;
+        }
+
+        /*Accordion*/
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: ease 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .accordion {
+            margin: 5%;
+            padding: 2%;
+        }
+
+        .HeaderText{
+            font-size: 1.1em;
+        }
+        
+        .accordion-header{
+            transition: transform 0.3s ease;
+            transform-origin: left center;
+        }
+        .accordion-header:hover{
+            transform: scale(1.1);
+            color: rgb(247, 215, 5);
+            cursor: default;            
+        }
+        .accordion-header:active{
+            transform: scale(0.95);
+            transition: ease 0.1s;
+            color: rgb(230, 200, 0);
+            cursor: default;
+        }        
+        .accordion-item{
+            margin: 1%;
+        }
+
+        /*Item Scaling*/
+
+        .LargeBox{
+            height: 1.5em;
+            width: 8em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .MediumBox{
+            height: 1.5em;
+            width: 6.5em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .SmallBox{
+            height: 1.5em;
+            width: 3em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .InlineGroup{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1em;
+        }
+        .LabelText{
+            font-size: 0.8em;
+        }
+        .OutText{
+            font-size: 0.9em;
+        }
+
+        /*Button Hover*/
+
+        .AddButton{
+            border: 0;
+            background-color: transparent;
+        }
+        .AddButton:hover{
+            transform: scale(1.1);
+            transition: ease 0.3s;
+            color: rgb(247, 215, 5);
+            cursor: default;             
+        }
+        .AddButton:active{
+            transform: scale(0.95);
+            transition: ease 0.1s;
+            color: rgb(230, 200, 0);
+            cursor: default;
+        }
+        .RemoveButton{
+            border: 0;
+            background-color: transparent;
+            font-size: 1.1em;
+        }
+        .RemoveButton:hover{
+            transform: scale(1.4);
+            transition: ease 0.2s;
+            color: rgb(247, 215, 5);
+            cursor: default;            
+        }
+        .RemoveButton:active{
+            transform: scale(0.90);
+            transition: ease 0.1s;
+            color: rgb(230, 200, 0);
+            cursor: default;
+        }
+             .back-symbol {
+                position: absolute;
+                text-decoration: none;
+                top: 70px;
+                left: 75px;
+                font-size: 30px;
+                font-weight:400;
+                color: #333;
+                background-color: transparent;
+                cursor: default;
+                border: 0;
+            }
+            .back-symbol:hover {
+                transform: scale(1.25);
+                transition: ease 0.2s;
+                color: rgb(247, 215, 5);
+            }  
+            .back-symbol:active {
+                transform: scale(0.9);
+                transition: ease 0.1s;
+                color: rgb(230, 200, 0);
+            }        
+
+        /**/
+    </style>
+    <body>
+        <div class="container">
+        <div class="Left">
+            <a class="back-symbol" href="index.html">&lt;<a></a>
+            <div class="accordion">
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="HeaderText">Mortgage Details</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="InlineGroup">
+                            <p class="LabelText">Purchase Price</p>
+                            <input type="text" class="LargeBox js-PurchasePrice">
+                        </div>
+
+                        <div class="InlineGroup">
+                            <p class="LabelText">Down Payment</p>
+                            <input type="text" class="LargeBox js-DownPayment">
+                            <input type="text" class="SmallBox js-DPercentOut" readonly>
+                        </div>
+                        
+                        <div class="InlineGroup">
+                            <p class="LabelText">Amortization</p>
+                            <input type="text" class="SmallBox js-AmortY">
+                            <input type="text" class="SmallBox js-AmortM">
+                        </div>
+                              
+                        <div class="InlineGroup">
+                            <p class="LabelText">Interest</p>
+                            <input type="text" class="SmallBox js-Interest">
+                        </div>                        
+
+                        <div class="InlineGroup">
+                            <p class="LabelText">Payment Frequency</p>
+                            <select class="MediumBox js-PrimaryFrequency">
+                                <option value="monthly">Monthly</option>
+                                <option value="semi-monthly">Semi-Monthly</option>
+                                <option value="bi-weekly">Bi-Weekly</option>
+                                <option value="weekly">Weekly</option>
+                            </select>
+                        </div>
+
+
+                        
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="HeaderText">Income Details</span>
+                    </div>
+                    <div class="accordion-content">
+                        <br>
+                        <div class="IncomeContainer"></div>
+                        <br>
+                        <div class="js-ButtonAnchor"></div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="HeaderText">Liabilities</span>
+                    </div>
+                    <div class="accordion-content">
+                        <br>
+                        <div class="LiabilityContainer"></div>
+                        <br>
+                        <div class="js-ButtonAnchor"></div>
+                        
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span class="HeaderText">Property Details</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="InlineGroup">
+                            <p class="LabelText">Propert Tax: </p>
+                            <input type="text" class="LargeBox js-PropertyTax">
+                        </div>
+                            <div class="InlineGroup">
+                            <p class="LabelText">Property Size: </p>
+                            <input type="text" class="LargeBox js-PropertySize">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="Right">
+            <div class="Read">
+                    <div class="InlineGroup">
+                        <p class="OutText">Mortgage: </p>
+                        <div class="OutText js-MortgageOut"></div>
+                    </div>
+
+                    <div class="InlineGroup">
+                        <p class="OutText">Default Insurance: </p>
+                        <div class="OutText js-InsuranceOut"></div>
+                    </div>
+
+                    <div class="InlineGroup">
+                        <p class="OutText">Total Loan Amount: </p>
+                        <div class="OutText js-LoanOut"></div>
+                    </div>
+
+                    <div class="InlineGroup">
+                        <p class="OutText">Payment: </p>
+                        <div class="OutText js-PaymentOut"></div>
+                    </div>
+
+                    <div class="InlineGroup">
+                        <p class="OutText">New Amortization: </p>
+                        <div class="OutText js-AmortOut"></div>
+                    </div>
+                    
+                    <div class="InlineGroup">
+                        <p class="OutText">TDSR: </p>
+                        <div class="OutText js-TDSOut"></div>
+                    </div> 
+                    
+                    <div class="InlineGroup">
+                        <p class="OutText">GDSR: </p>
+                        <div class="OutText js-GDSOut"></div>
+                    </div>                     
+            </div>
+        </div>
+        
+        </div>
+    </body>
+    <script>
+
+        //Store Object
+
+        let store={
+            purchase:{
+                in:{
+                    price:0,
+                    downPayment:0,
+                    amort:25,
+                    interest:0,
+                    primaryFrequency:"monthly",
+                },
+                out:{
+                    loan:0,
+                    mortgage:0,
+                    downPercent:0,
+                    insurance:0,
+                    payment:0,
+                    newAmortY:0,
+                    newAmortM:0,
+                    qPay:0
+                }
+            },
+            income:[],
+            liability:[],
+            expense:{
+                tax:0,
+                heat:0
+            },
+            total:{
+                income:0,
+                liability:0
+            },
+            function:{
+                dins:"",
+                isNew:"",
+            },            
+            ratio:{
+                tds:0,
+                gds:0
+            }
+        };
+        //
+
+        //Accordion
+
+        function Accordion(){
+            const headers = document.querySelectorAll(".accordion-header");
+            const firstItem = document.querySelector(".accordion-item");
+            if(firstItem){
+                const firstContent= firstItem.querySelector(".accordion-content");
+                firstItem.classList.add("active");
+                firstContent.style.maxHeight = firstContent.scrollHeight + "px"
+            };
+            headers.forEach(header=>{
+                header.addEventListener("click",()=>{
+                    const item = header.parentElement;
+                    const content = header.nextElementSibling;
+                    document.querySelectorAll(".accordion-item").forEach(i=>{
+                        i.classList.remove("active");
+                        i.querySelector(".accordion-content").style.maxHeight = null;
+                    });
+                    if(!item.classList.contains("active")){
+                        item.classList.add("active");
+                        content.style.maxHeight = content.scrollHeight + "px"
+                    };
+                });
+            });
+        }
+        document.addEventListener("DOMContentLoaded",Accordion);
+
+        //Format
+
+            function formatWithCommas(input) {
+                let value = input.value.replace(/[$,]/g, "");
+                if (!isNaN(value) && value !== "") {
+                    input.value = "$" + Number(value).toLocaleString("en-US");
+                }
+            }
+
+            document.querySelector(".js-PurchasePrice").addEventListener("input",function(){formatWithCommas(this)});
+            document.querySelector(".js-DownPayment").addEventListener("input",function(){formatWithCommas(this)});
+            document.querySelector(".js-PropertyTax").addEventListener("input",function(){formatWithCommas(this)});
+
+            function formatWithPercentIn(input) {
+            let value = input.value.replace(/[%]/g,"");
+            value = parseFloat(value).toFixed(2);
+            if (!isNaN(value)&& value!==""){
+                input.value = value + "%";
+            }}
+
+            function formatWithPercentOut(input) {
+            input.value = ""
+            input.value = input.value.replace(/%/g,"");
+            }
+            
+            document.querySelector(".js-Interest").addEventListener("blur",function() {formatWithPercentIn(this)});
+            document.querySelector(".js-Interest").addEventListener("focus",function() {formatWithPercentOut(this)});
+
+        //Adder
+
+        function adder({ selector, category, text, typeList, freqList }){
+            const parent = document.querySelector(selector);
+            const anchor = parent.closest(".accordion-content").querySelector(".js-ButtonAnchor")
+            const button = document.createElement("button");
+            button.classList.add("AddButton");
+            button.textContent = text;
+            anchor.appendChild(button);
+            button.addEventListener("click",()=>{
+                const row = document.createElement("div");
+                row.classList.add("js-row");
+                parent.appendChild(row)
+                const select = document.createElement("select");
+                typeList.forEach(type=>{
+                    const option = document.createElement("option");
+                    option.value = type.toLowerCase().replace(/\s+/g,"_");
+                    option.textContent = type;
+                    select.appendChild(option)
+                });
+                row.appendChild(select);
+                //select.addEventListener("change",)
+                select.classList.add("MediumBox");
+                select.classList.add(`js-${category}Type`)
+                const item = document.createElement("input");
+                item.type = "text";
+                item.classList.add("LargeBox");
+                item.classList.add(`js-${category}`)
+                row.appendChild(item);
+                item.addEventListener("input",function(){formatWithCommas(this)});
+                //item.addEventListener("input",)
+
+                const Fselect = document.createElement("select");
+                freqList.forEach(type=>{
+                    const option = document.createElement("option");
+                    option.value = type.toLowerCase().replace(/\s+/g,"_");
+                    option.textContent = type;
+                    Fselect.appendChild(option);
+                });
+                row.appendChild(Fselect);
+                //Fselect.addEventListener("change",)
+                Fselect.classList.add("MediumBox");
+                Fselect.classList.add(`js-${category}Freq`);
+
+                const key = category.toLowerCase();
+                const remove = document.createElement("button");
+                remove.textContent= "x";
+                remove.classList.add("RemoveButton");
+                row.appendChild(remove);
+                remove.addEventListener("click",()=>{
+                    const index = store[key].indexOf(entry);
+                    if (index > -1) store[key].splice(index, 1);
+                    NormalizeEntry(entry,key)
+                    row.remove()});
+                const accordionContent = parent.closest(".accordion-content");
+                if (accordionContent) {
+                    accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+                }
+
+                let entry = {
+                    type: category,
+                    subType: select.value,
+                    amount:0,
+                    freq: Fselect.value,
+                    normalized:0
+                };
+
+                store[key].push(entry);
+
+                item.addEventListener("input",()=>{
+                    entry.amount = parseFloat(item.value.replace(/[$,]/g,""))||0;
+                    NormalizeEntry(entry,key);
+                    debugStore();
+                });
+
+                select.addEventListener("change",()=>{
+                    entry.subType = select.value;
+                    NormalizeEntry(entry,key);
+                    debugStore();
+                });
+
+                Fselect.addEventListener("change",()=>{
+                    entry.freq = Fselect.value;
+                    NormalizeEntry(entry,key);
+                    debugStore();
+                });
+            });
+        }
+        adder({ selector:".IncomeContainer", category:"Income", text: "+ Add Income", 
+        typeList:["Salary", "Other Income", "Rental Income"], 
+        freqList:["Annually", "Monthly", "Semi-Monthly", "Bi-Weekly", "Weekly"]});
+
+        adder({ selector:".LiabilityContainer", category:"Liability", text:"+ Add Liability", 
+        typeList:["Credit Card", "Car Payment", "Line of Credit"], 
+        freqList:["Balance","Monthly","Semi-Monthly","Bi-weekly","Weekly"] });
+
+        // Read 
+
+        function Read(){
+        const price = Number(document.querySelector(".js-PurchasePrice").value.replace(/[$,]/g,""));
+        const down = Number(document.querySelector(".js-DownPayment").value.replace(/[$,]/g,""));
+        const amY = Number(document.querySelector(".js-AmortY").value);
+        const amM = Number(document.querySelector(".js-AmortM").value);
+        const int = Number(document.querySelector(".js-Interest").value.replace(/[%]/g,""))/100;
+        const Pfreq = document.querySelector(".js-PrimaryFrequency");
+        const pTax = Number(document.querySelector(".js-PropertyTax").value.replace(/[$,]/g,""))/12;
+        const pSize = Number(document.querySelector(".js-PropertySize").value);
+
+        const amT = amY + amM/12
+        const heat = pSize*0.05
+
+        store.purchase.in.price = price;
+        store.purchase.in.downPayment = down;
+        store.purchase.in.amort = amT;
+        store.purchase.in.interest = int;
+        store.purchase.in.primaryFrequency = Pfreq.value.toLowerCase();
+        store.expense.tax = pTax;
+        store.expense.heat = heat;
+        dIns()
+        }
+
+        //Normalize
+
+        function NormalizeEntry(entry,key){
+            const freq = entry.freq.toLowerCase();
+
+            let factor;
+            switch(freq){
+                case "annually": factor = 1/12; break;
+                case "monthly": factor = 1; break;
+                case "semi-monthly": factor = 2; break;
+                case "bi-weekly": factor = 26/12;break;
+                case "weekly":factor = 52/12;break;
+                case "balance":factor = 0.03;break;
+                default: factor = 1;
+            }
+            entry.normalized = entry.amount * factor;
+            Agregate(key);
+            TDS()
+            return entry.normalized;
+        }
+
+        
+
+        function Agregate(key){
+            if(!store[key]) return;
+            let sum=0;
+            store[key].forEach(entry=>{
+                let item = entry.normalized;
+                sum += item
+            });
+            store.total[key] = sum;
+        }
+
+        //Default Insurance
+
+        function dIns(){
+            const price = store.purchase.in.price;
+            const down = store.purchase.in.downPayment;
+            const downP = price > 0 ? (down/price)*100 : 0;
+            const mort = price-down;
+            const ltv = 100-downP;
+            store.purchase.out.downPercent = downP;
+            store.purchase.out.mortgage = mort;
+            const amort = store.purchase.in.amort;
+            let loan;
+            let ins;
+            if(amort<=25 && ltv>80 && ltv<=85){
+                ins = 0.028;
+            } else if(amort<=25 && ltv>85 && ltv<=90){
+                ins = 0.031;
+            } else if(amort<=25 && ltv>90 && ltv<=95){
+                ins = 0.04;
+            } else if(amort>25 && amort<=30 && ltv>80 && ltv<=85){
+                ins = 0.03
+            } else if(amort>25 && amort<=30 && ltv>85 && ltv<=90){
+                ins = 0.033
+            } else if(amort>25 && amort<=30 && ltv>90 && ltv<=95){
+                ins = 0.042
+            } else if(ltv<=80){
+                ins = 0
+            }
+
+            if (!isNaN(ins)){
+                loan = mort*(ins+1);
+            } else {loan = 0}
+            store.purchase.out.loan = loan;
+
+            if (ltv>95){
+                store.function.dins = "LOW";
+            } else if(ltv>80 && ltv<=95){
+                store.function.dins = "YES";
+            } else if(ltv<=80){
+                store.function.dins = "NO";
+            }
+            const insurance = mort*ins;
+            store.purchase.out.insurance = insurance;
+            Payment()
+        }
+
+        //Payment
+
+        function Payment(){
+            const loan = store.purchase.out.loan;
+            const int = store.purchase.in.interest;
+            const amort = store.purchase.in.amort;
+            const tax = store.expense.tax;
+            const heat = store.expense.heat;
+            const freq = store.purchase.in.primaryFrequency;
+            let n;
+            if (freq==="monthly"){
+                n=12
+            } else if (freq==="semi-monthly"||freq==="bi-weekly"){
+                n=24
+            } else if (freq==="weekly"){
+                n=48
+            }
+            let ron = int/n;
+            let tn=amort*n;
+            let PMT;
+            if(int===0){
+                PMT = loan/tn;
+            } else {
+                PMT = loan*((Math.pow(1+ron,tn)*ron)/(Math.pow(1+ron,tn)-1));
+            }
+            if (!isNaN(PMT)&&isFinite(PMT)){
+                store.purchase.out.payment = PMT;
+            }
+
+            const qInt = int + 0.02;
+
+            let qRon = qInt/n;
+            let qPay;
+            if(qInt===0){
+                qPay = loan/tn;
+            } else {
+                qPay = loan*((Math.pow(1+qRon,tn)*qRon)/(Math.pow(1+qRon,tn)-1));
+            }
+            let norm;
+            switch(freq){
+                case "monthly": norm = 1;break;
+                case "semi-monthly": norm = 2;break;
+                case "bi-weekly": norm = 26/12;break;
+                case "weekly": norm = 52/12;break;
+                default: norm = 1
+            }
+            let qPayment = qPay*norm
+
+            if (!isNaN(qPayment)&&isFinite(qPayment)){
+                store.purchase.out.qPay = qPayment;
+            }
+
+            NewAmort()
+        }
+
+        //New Amortization
+
+        function NewAmort(){
+            const freq = store.purchase.in.primaryFrequency;
+            const pay = store.purchase.out.payment;
+            const loan = store.purchase.out.loan;
+            const int = store.purchase.in.interest;
+            if(freq==="bi-weekly" || freq==="weekly") {
+                store.function.isNew = "Y";
+                let T;
+                let n;
+                let ron;
+                
+                if(freq === "bi-weekly"){
+                    n=26;
+                    ron=int/26;
+                } else if (freq==="weekly"){
+                    n=52;
+                    ron=int/52;
+                }
+                T = (-Math.log(1 - ron * loan / pay) / Math.log(1 + ron))/n;
+
+                let nAmY = Math.floor(T);
+                let nAmM = (T-nAmY)*12;
+                nAmY = Math.round(nAmY);
+                nAmM = Math.round(nAmM);
+                
+                store.purchase.out.newAmortY = nAmY;
+                store.purchase.out.newAmortM = nAmM;
+            } else {
+                store.function.isNew = "N"
+            }
+            TDS()
+        }
+
+        function TDS(){
+            const pay = store.purchase.out.qPay;
+            const heat = store.expense.heat;
+            const tax = store.expense.tax;
+            const debt = store.total.liability;
+            const inc = store.total.income;
+            let TDSR;
+            let GDSR;
+            if(inc>0 && !isNaN(inc)){
+                TDSR = (pay + heat + tax + debt)/inc;
+                GDSR = (pay + heat + tax)/inc;
+            } else {
+                TDSR = "";
+                GDSR = "";
+            }
+            store.ratio.tds = TDSR;
+            store.ratio.gds = GDSR;
+            Write()
+        }
+
+        function Write(){
+            const mort = store.purchase.out.mortgage;
+            const loan = store.purchase.out.loan;
+            const ins = store.purchase.out.insurance;
+            const isDins = store.function.dins;
+            const dPercent = store.purchase.out.downPercent;
+            document.querySelector(".js-MortgageOut").textContent = "$" + mort.toLocaleString("en-US");
+            if (isDins==="LOW"){
+                document.querySelector(".js-InsuranceOut").textContent = "Too Low";
+                document.querySelector(".js-LoanOut").textContent = "$0"
+            } else if (isDins==="YES"){
+                document.querySelector(".js-InsuranceOut").textContent = "$" + ins.toLocaleString("en-US");
+                document.querySelector(".js-LoanOut").textContent = "$" + loan.toLocaleString("en-US");
+            } else if (isDins==="NO"){
+                document.querySelector(".js-InsuranceOut").textContent = "Not Required";
+                document.querySelector(".js-LoanOut").textContent = "$" + loan.toLocaleString("en-US");
+            } else {
+                document.querySelector(".js-InsuranceOut").textContent = "";
+                document.querySelector(".js-LoanOut").textContent = "";
+            }
+            document.querySelector(".js-DPercentOut").value = dPercent.toFixed(1) + "%";
+
+            const pay = store.purchase.out.payment;
+            document.querySelector(".js-PaymentOut").textContent = "$" + Number(pay.toFixed(2)).toLocaleString("en-US");
+
+            const isNew = store.function.isNew;
+            const newAmY = store.purchase.out.newAmortY;
+            const newAmM = store.purchase.out.newAmortM;
+            if (isNew==="N"){
+                document.querySelector(".js-AmortOut").textContent = "";
+            } else if (isNew==="Y"){
+                document.querySelector(".js-AmortOut").textContent = newAmY + " Years, "+ newAmM + " Months";
+            } else {
+                document.querySelector(".js-AmortOut").textContent = "";
+            }
+            const TDSR = store.ratio.tds *100;
+            const GDSR = store.ratio.gds *100;
+            document.querySelector(".js-TDSOut").textContent = TDSR.toFixed(2) + "%";
+            document.querySelector(".js-GDSOut").textContent = GDSR.toFixed(2) + "%";
+        }
+
+        document.querySelectorAll("input").forEach(el=>{
+            el.addEventListener("input",Read)
+        });
+        document.querySelectorAll("select").forEach(el=>{
+            el.addEventListener("change",Read)
+        });
+
+
+        function debugStore() {
+    console.clear(); 
+    console.table(store.income);    
+    console.table(store.liability); 
+    console.log("Store object:", store);
+}
+
+        document.querySelectorAll("input").forEach(el=>{
+            el.addEventListener("input",debugStore)
+        });
+        document.querySelectorAll("select").forEach(el=>{
+            el.addEventListener("change",debugStore)
+        });
+
+    </script>
+</html>
